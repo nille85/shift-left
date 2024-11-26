@@ -17,7 +17,7 @@ jobs:
 
       # Vulnerability Scanning
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.29.0
         with:
           scan-type: 'fs'
           security-checks: 'vuln'
@@ -27,7 +27,7 @@ jobs:
 
       # Secret Scanning
       - name: Run Trivy secret scanner
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.29.0
         with:
           scan-type: 'fs'
           security-checks: 'secret'
@@ -36,7 +36,7 @@ jobs:
 
       # Misconfiguration Scanning
       - name: Run Trivy config scanner
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.29.0
         with:
           scan-type: 'fs'
           security-checks: 'config'
