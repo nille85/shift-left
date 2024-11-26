@@ -1,0 +1,46 @@
+name: Security Scanning
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Vulnerability Scanning
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          scan-type: 'fs'
+          security-checks: 'vuln'
+          scan-ref: '.'
+          exit-code: 1
+          severity: 'CRITICAL,HIGH'
+
+      # Secret Scanning
+      - name: Run Trivy secret scanner
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          scan-type: 'fs'
+          security-checks: 'secret'
+          scan-ref: '.'
+          exit-code: 1
+
+      # Misconfiguration Scanning
+      - name: Run Trivy config scanner
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          scan-type: 'fs'
+          security-checks: 'config'
+          scan-ref: '.'
+          exit-code: 1
+
+     
